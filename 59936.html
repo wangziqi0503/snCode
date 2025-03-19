@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token" content="tdIJhCid17J82leASRTzWNNyFq2B4UvEjPXMNCpwRx-EkTjBbtSzyEruM9IEc71t6jQm5dWifrbgg41xaz0_KA==">
+    <title>串号库存查询</title>
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" sizes="196x196" href="https://i6.mifile.cn//b2c-men/oms/8/8/60645e0a5e522.png">
+    <script src="jquery1.js"></script>
+    <script src="JsBarcode.min.js"></script>
+
+</head>
+
+
+<body>
+    <div class="app" id="app">
+        <div class="headK">凯哥SN串码生成器</div>
+        <div class="copyTx" id="copyTx">
+            <textarea id="textarea"></textarea>
+        </div>
+        <div class="add" id="add">生成表格</div>
+        <!-- ############ LAYOUT START-->
+        <div class="form-group">
+            <!-- <label class="col-sm-2 control-label">
+                条形码：
+            </label> -->
+            <div class="col-sm-10">
+                <img id="imgcode" style="max-width: 100%;" />
+            </div>
+        </div>
+
+        <!-- / aside -->
+        <!-- content -->
+        <div id="content" class="app-content box-shadow-z0" role="main">
+            <table class="table table-bordered table-striped table-hover m-a-0 water-mark" style="min-width:65rem">
+                <thead>
+                    <tr>
+                        <th class="col-th-10 text-center">序号</th>
+                        <th class="col-th-10 text-center"><a href="/mistock/sn/list?InvImei%5Bmacno%5D=40924&amp;InvImei%5Bprovince_id%5D=&amp;InvImei%5Borg_id%5D=JM20390&amp;InvImei%5Bunit_type%5D=&amp;date_begin=&amp;date_end=&amp;sort=org_id" data-sort="org_id">门店名称</a></th>
+                        <th class="col-th-11 text-center">库存类型</th>
+                        <th class="col-th-5 text-center"><a href="/mistock/sn/list?InvImei%5Bmacno%5D=40924&amp;InvImei%5Bprovince_id%5D=&amp;InvImei%5Borg_id%5D=JM20390&amp;InvImei%5Bunit_type%5D=&amp;date_begin=&amp;date_end=&amp;sort=macno" data-sort="macno">商品Id</a></th>
+                        <th class="col-th-10 text-center">商品名称</th>
+                        <th class="col-th-10 text-center"><a href="/mistock/sn/list?InvImei%5Bmacno%5D=40924&amp;InvImei%5Bprovince_id%5D=&amp;InvImei%5Borg_id%5D=JM20390&amp;InvImei%5Bunit_type%5D=&amp;date_begin=&amp;date_end=&amp;sort=imei" data-sort="imei">IMEI</a></th>
+                        <th class="col-th-10 text-center"><a href="/mistock/sn/list?InvImei%5Bmacno%5D=40924&amp;InvImei%5Bprovince_id%5D=&amp;InvImei%5Borg_id%5D=JM20390&amp;InvImei%5Bunit_type%5D=&amp;date_begin=&amp;date_end=&amp;sort=sn" data-sort="sn">串号</a></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <!-- / -->
+    <!-- ############ LAYOUT END-->
+    </div>
+    <style>
+        #content {
+            background-color: #fbe3e5;
+        }
+        
+        .headK {
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            font-family: '微软雅黑';
+            background: #e459b2;
+            color: antiquewhite;
+            font-size: 30px;
+        }
+        
+        .tbody tr td:nth-child(7) {
+            background-color: #da9d41;
+            cursor: pointer;
+        }
+        
+        .tbody tr td {
+            padding: 0 20px
+        }
+        
+        .tbody tr td:nth-last-child(-n+2) {
+            display: none;
+        }
+        
+        #barcode {
+            width: 200px;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -100px;
+            margin-top: -50px;
+            background: red;
+        }
+        
+        #imgcode {
+            position: fixed;
+            top: 50%;
+            left: 10%;
+        }
+        
+        .add {
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 30px;
+            background-color: aqua;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        var num = 1
+            // 复制点击内容
+        function copyTextToClipboard(text) {
+            var textarea = document.createElement("textarea");
+            textarea.textContent = text;
+            textarea.style.position = "fixed";
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Copying text command was ' + msg);
+            } catch (err) {
+                console.error('Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textarea);
+        }
+
+        // 重置条形码
+        function gen_code(sn, text) {
+            $('#imgcode').JsBarcode(sn)
+        }
+
+        //处理表格
+        function tbodySet(e, index) {
+            if (e.className.includes("tbody")) {
+                return false
+            }
+
+            e.classList.add("tbody")
+            e.id = 'tbody' + index
+            var trs = e.getElementsByTagName('tr');
+            Array.from(trs).forEach(function(tr, index) {
+                // 创建一个新的td元素
+                var td = document.createElement('td');
+                td.textContent = `${index + 1}`; // 设置td的内容
+                // 将td添加到tr中
+                tr.prepend(td);
+                var tds = tr.getElementsByTagName('td');
+                tds[6].addEventListener('click', function() {
+                    gen_code($(this).context.innerHTML, $(this).context.innerHTML)
+                    $(this).css({
+                        'background-color': '#a8e95c'
+                    })
+                });
+
+            });
+            // Array.from(trs).forEach(function(tr) {
+            //     console.log('tr===', tr)
+            // })
+
+        }
+
+
+        // 初始化条形码
+        $(document).ready(function() {
+            var content = ""
+            if (content == "") {
+                content = "www.jsons.cn";
+                $("#imgcode").JsBarcode(content);
+            }
+        })
+
+        //点击SN码
+        function touchSN(children) {
+            // copyTextToClipboard($(this).context.innerHTML)
+            console.log('xxx', children)
+            gen_code($(this).context.innerHTML, $(this).context.innerHTML)
+            $(this).css({
+                'background-color': '#a8e95c'
+            })
+        }
+
+        // 点击生成表格
+        $('#add').click(function() {
+            var textarea = document.getElementById('textarea')
+            $('#content').append(textarea.value)
+            var tbodys = document.querySelectorAll('tbody');
+            tbodys.forEach(function(e, index) {
+                tbodySet(e, index)
+            })
+            textarea.value = ''
+        })
+    </script>
+</body>
+
+</html>
