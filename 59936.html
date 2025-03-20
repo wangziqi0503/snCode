@@ -28,7 +28,7 @@
         <div class="copyTx" id="copyTx">
             <textarea id="textarea"></textarea>
         </div>
-        <div class="add" id="add">生成表格</div>
+        <div class="add black" id="add">生成表格</div>
         <!-- ############ LAYOUT START-->
         <div class="form-group">
             <!-- <label class="col-sm-2 control-label">
@@ -46,12 +46,13 @@
                 <thead>
                     <tr>
                         <th class="col-th-10 text-center">序号</th>
-                        <th class="col-th-10 text-center"><a href="/mistock/sn/list?InvImei%5Bmacno%5D=40924&amp;InvImei%5Bprovince_id%5D=&amp;InvImei%5Borg_id%5D=JM20390&amp;InvImei%5Bunit_type%5D=&amp;date_begin=&amp;date_end=&amp;sort=org_id" data-sort="org_id">门店名称</a></th>
+                        <th class="col-th-10 text-center">门店名称</th>
                         <th class="col-th-11 text-center">库存类型</th>
-                        <th class="col-th-5 text-center"><a href="/mistock/sn/list?InvImei%5Bmacno%5D=40924&amp;InvImei%5Bprovince_id%5D=&amp;InvImei%5Borg_id%5D=JM20390&amp;InvImei%5Bunit_type%5D=&amp;date_begin=&amp;date_end=&amp;sort=macno" data-sort="macno">商品Id</a></th>
+                        <th class="col-th-5 text-center">商品Id</a>
+                        </th>
                         <th class="col-th-10 text-center">商品名称</th>
-                        <th class="col-th-10 text-center"><a href="/mistock/sn/list?InvImei%5Bmacno%5D=40924&amp;InvImei%5Bprovince_id%5D=&amp;InvImei%5Borg_id%5D=JM20390&amp;InvImei%5Bunit_type%5D=&amp;date_begin=&amp;date_end=&amp;sort=imei" data-sort="imei">IMEI</a></th>
-                        <th class="col-th-10 text-center"><a href="/mistock/sn/list?InvImei%5Bmacno%5D=40924&amp;InvImei%5Bprovince_id%5D=&amp;InvImei%5Borg_id%5D=JM20390&amp;InvImei%5Bunit_type%5D=&amp;date_begin=&amp;date_end=&amp;sort=sn" data-sort="sn">串号</a></th>
+                        <th class="col-th-10 text-center">IMEI</th>
+                        <th class="col-th-10 text-center">串号</th>
                     </tr>
                 </thead>
             </table>
@@ -62,8 +63,27 @@
     <!-- ############ LAYOUT END-->
     </div>
     <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+        
+        body {
+            background: url(bg.jpg.jfif) no-repeat;
+            background-size: cover;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        #app {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+        }
+        
         #content {
-            background-color: #fbe3e5;
+            /* background-color: #fbe3e5; */
         }
         
         .headK {
@@ -72,8 +92,8 @@
             line-height: 60px;
             text-align: center;
             font-family: '微软雅黑';
-            background: #e459b2;
-            color: antiquewhite;
+            /* background: #e459b2; */
+            color: rgb(250, 64, 244);
             font-size: 30px;
         }
         
@@ -108,13 +128,35 @@
         }
         
         .add {
+            position: fixed;
             width: 100px;
             height: 40px;
             line-height: 40px;
             text-align: center;
             border-radius: 30px;
-            background-color: aqua;
             cursor: pointer;
+            right: 10px;
+            top: 120px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 1px #333;
+            border-radius: 5px;
+        }
+        
+        .add.black {
+            border: 1px solid #333;
+            box-shadow: 0 1px 2px #8b8b8b inset, 0 -1px 0 #3d3d3d inset, 0 -2px 3px #8b8b8b inset;
+            background: -webkit-linear-gradient(top, #656565, #4c4c4c);
+            background: -moz-linear-gradient(top, #656565, #4a4a4a);
+            background: linear-gradient(top, #656565, #4a4a4a);
+        }
+        
+        #textarea {
+            position: fixed;
+            right: 10px;
+            top: 0;
+            width: 300px;
+            height: 100px;
         }
     </style>
     <script>
